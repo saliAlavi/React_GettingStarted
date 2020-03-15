@@ -1,23 +1,27 @@
 var path = require("path");
 
 module.exports={
-    entry: path.resolve(__dirname,'src')+'/app/index.html',
+    entry: path.resolve(__dirname,'src')+'/app/index.js',
     output:{
         path: path.resolve(__dirname,'dist')+'/app',
-        filename: 'fundle.js',
-        pulicPath: '/app/'
+        filename: 'bundle.js',
+        publicPath: '/app/'
     },
-    modeule:{
-        loaders:[
+    module:{
+        rules:[
             {
                 test:/\.js%/,
-                include: path.resolve(__dirname,src),
-                loaders: 'babel-loader',
-                query:['react', 'es2015']
+                include: path.resolve(__dirname,'src'),
+                use: {
+                  loader: "babel-loader"
+                }
             },
             {
                 test:/\.css&/,
-                loaders:'style-loader!css-loader'
+                use:{
+                  loader:'style-loader!css-loader'
+                }
+
             }
         ]
     }
